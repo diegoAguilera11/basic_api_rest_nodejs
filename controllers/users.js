@@ -1,8 +1,6 @@
 const { response, request } = require('express');
 const User = require('../models/user');
 const userService = require('../services/userService');
-const bcryptjs = require('bcryptjs');
-const { validateFields } = require('../middlewares/validate-fields');
 
 const getUsers = async (req = request, res = response) => {
 
@@ -15,8 +13,7 @@ const getUsers = async (req = request, res = response) => {
             .skip(Number(init))
             .limit(Number(limit)),
     ]);
-
-
+    
     res.json({
         total,
         users
@@ -52,12 +49,6 @@ const putUsers = async (req, res = response) => {
     });
 }
 
-const patchUsers = (req, res = response) => {
-    res.json({
-        'message': 'Patch API! Controller'
-    });
-}
-
 const deleteUsers = async (req, res = response) => {
 
     const { id } = req.params;
@@ -65,17 +56,14 @@ const deleteUsers = async (req, res = response) => {
     // Physics delete user
     // const user = await User.findByIdAndDelete(id);
 
-    const user = await User.findByIdAndUpdate(id, {status: false});
+    const user = await User.findByIdAndUpdate(id, { status: false });
 
-    res.json({
-        user
-    });
+    res.json(user);
 }
 
 module.exports = {
     getUsers,
     postUsers,
     putUsers,
-    patchUsers,
     deleteUsers
 }
