@@ -13,8 +13,7 @@ const getUsers = async (req = request, res = response) => {
             .skip(Number(init))
             .limit(Number(limit)),
     ]);
-
-
+    
     res.json({
         total,
         users
